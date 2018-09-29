@@ -25,6 +25,8 @@ package io.github.coffee0127.di;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 /**
@@ -37,9 +39,9 @@ public class HolidayTest {
 
     @Test
     public void should_return_xmas_if_today_is_xmas() {
-        Holiday holiday = new Holiday();
+        Holiday holiday = new Holiday(LocalDate.of(2018, 12, 25));
         String result = holiday.sayXmas();
-        // only pass when today is Xmas
+        // always pass~~
         assertEquals("Merry Xmas", result);
     }
 

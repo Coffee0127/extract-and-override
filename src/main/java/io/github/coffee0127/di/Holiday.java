@@ -27,17 +27,29 @@ import java.time.LocalDate;
 import java.time.Month;
 
 /**
- * Holiday
+ * Holiday with constructor dependency injection
  *
  * @author Bo-Xuan Fan
  * @since 2018-09-29
  */
 public class Holiday {
 
+    private LocalDate date;
+
+    public Holiday() {
+        this(null);
+    }
+
+    Holiday(LocalDate date) {
+        if (date == null) {
+            date = LocalDate.now();
+        }
+        this.date = date;
+    }
+
     public String sayXmas() {
-        LocalDate today = LocalDate.now();
-        boolean isXmas = today.getMonth().equals(Month.DECEMBER)
-            && today.getDayOfMonth() == 25;
+        boolean isXmas = date.getMonth().equals(Month.DECEMBER)
+            && date.getDayOfMonth() == 25;
         if (isXmas) {
             return "Merry Xmas";
         }
