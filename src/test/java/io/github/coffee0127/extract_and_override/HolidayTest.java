@@ -23,28 +23,41 @@
  */
 package io.github.coffee0127.extract_and_override;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDate;
-import java.time.Month;
+
+import org.junit.Test;
 
 /**
- * Holiday with protected method
+ * HolidayTest
  *
  * @author Bo-Xuan Fan
  * @since 2018-09-29
  */
-public class Holiday {
+public class HolidayTest {
 
-    public String sayXmas() {
-        LocalDate today = getDate();
-        boolean isXmas = today.getMonth().equals(Month.DECEMBER)
-            && today.getDayOfMonth() == 25;
-        if (isXmas) {
-            return "Merry Xmas";
+    @Test
+    public void should_return_xmas_if_today_is_xmas() {
+        HolidayForTest holiday = new HolidayForTest();
+        holiday.setDate(LocalDate.of(2018, 12, 25));
+        String result = holiday.sayXmas();
+        assertEquals("Merry Xmas", result);
+    }
+
+    class HolidayForTest extends Holiday {
+
+        private LocalDate date;
+
+        public void setDate(LocalDate date) {
+            this.date = date;
         }
-        return "Today is not Xmas";
+
+        @Override
+        protected LocalDate getDate() {
+            return date;
+        }
+
     }
 
-    protected LocalDate getDate() {
-        return LocalDate.now();
-    }
 }
