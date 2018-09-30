@@ -24,6 +24,8 @@
 package io.github.coffee0127.extract_and_override;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 
@@ -38,11 +40,11 @@ import org.junit.Test;
  */
 public class HolidayTest {
 
-    private HolidayForTest target;
+    private Holiday target;
 
     @Before
     public void setUp() {
-        target = new HolidayForTest();
+        target = spy(Holiday.class);
     }
 
     @Test
@@ -62,22 +64,7 @@ public class HolidayTest {
     }
 
     private void givenDate(int month, int dayOfMonth) {
-        target.setDate(LocalDate.of(2018, month, dayOfMonth));
-    }
-
-    class HolidayForTest extends Holiday {
-
-        private LocalDate date;
-
-        public void setDate(LocalDate date) {
-            this.date = date;
-        }
-
-        @Override
-        protected LocalDate getDate() {
-            return date;
-        }
-
+        when(target.getDate()).thenReturn(LocalDate.of(2018, month, dayOfMonth));
     }
 
 }
