@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -37,12 +38,31 @@ import org.junit.Test;
  */
 public class HolidayTest {
 
+    private HolidayForTest target;
+
+    @Before
+    public void setUp() {
+        target = new HolidayForTest();
+    }
+
     @Test
     public void should_return_xmas_if_today_is_xmas() {
-        HolidayForTest holiday = new HolidayForTest();
-        holiday.setDate(LocalDate.of(2018, 12, 25));
-        String result = holiday.sayXmas();
-        assertEquals("Merry Xmas", result);
+        givenDate(12, 25);
+        shouldResponse("Merry Xmas");
+    }
+
+    @Test
+    public void should_not_return_xmas_if_today_is_not_xmas() {
+        givenDate(1, 1);
+        shouldResponse("Today is not Xmas");
+    }
+
+    private void shouldResponse(String response) {
+        assertEquals(response, target.sayXmas());
+    }
+
+    private void givenDate(int month, int dayOfMonth) {
+        target.setDate(LocalDate.of(2018, month, dayOfMonth));
     }
 
     class HolidayForTest extends Holiday {
